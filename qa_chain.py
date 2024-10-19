@@ -19,7 +19,7 @@ _ = load_dotenv(find_dotenv())    # read local .env file
 
 
 from build_database import build_database
-def get_vectordb(persist_directory = r'.\data_base\vector_db\chroma'):
+def get_vectordb(persist_directory = r'./data_base/vector_db/chroma'):
     # 向量数据库持久化路径
     if not os.path.exists(persist_directory):
         vectordb = build_database()
