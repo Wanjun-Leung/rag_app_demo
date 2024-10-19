@@ -32,7 +32,7 @@ _ = load_dotenv(find_dotenv())
 def build_database():
     # 获取folder_path下所有文件路径，储存在file_paths里
     file_paths = []
-    folder_path = r'.\data_base\knowledge_db' # r''表示原始字符串，不会对字符串中的特殊字符进行转义
+    folder_path = r'./data_base/knowledge_db' # r''表示原始字符串，不会对字符串中的特殊字符进行转义
     for root, dirs, files in os.walk(folder_path): # root: 当前目录路径, dirs: 当前路径下所有子目录（不包含路径root）, files: 当前路径下所有非目录子文件名（不包含路径root）
         for file in files:
             file_path = os.path.join(root, file)
