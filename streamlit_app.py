@@ -29,8 +29,8 @@ def main():
     if not zhipu_api_key:
         st.warning('Please enter your Zhipu API key!', icon='⚠')
         return
-    if api_key == 'admin':
-        api_key = os.environ['ZHIPUAI_API_KEY']
+    if zhipu_api_key == 'admin':
+        zhipu_api_key = os.environ['ZHIPUAI_API_KEY']
 
     selected_method = st.radio(
         "你想选择哪种模式进行对话？",
