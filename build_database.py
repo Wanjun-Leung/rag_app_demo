@@ -70,7 +70,9 @@ def build_database():
 
     # 选择 Chroma向量数据库 是因为它轻量级且数据存储在内存中，这使得它非常容易启动和开始使用
     from langchain_community.vectorstores import Chroma
-
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
     # from_documetns 传入List[Document]，即langchain_core.documents.base.Document变量类型的列表，from_texts 传入List[str]
     # embedding传入我们定义的Embedding，persist_directory传入我们定义的持久化路径
     vectordb = Chroma.from_documents(
