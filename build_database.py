@@ -1,3 +1,11 @@
+# import subprocess
+import sys
+# subprocess.check_call(
+#     [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
+# )
+__import__("pysqlite3")
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+
 import os
 from dotenv import load_dotenv, find_dotenv
 from langchain_community.document_loaders import PyMuPDFLoader
@@ -10,14 +18,6 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from zhipuai_embedding import ZhipuAIEmbeddings          # 使用我们自己封装的智谱 Embedding，需要将封装代码下载到本地使用
 
 from langchain_community.vectorstores import Chroma
-
-import subprocess
-import sys
-subprocess.check_call(
-    [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
-)
-__import__("pysqlite3")
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 
 # 读取本地/项目的环境变量。
 # find_dotenv()寻找并定位.env文件的路径
