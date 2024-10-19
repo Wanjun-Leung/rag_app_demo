@@ -4,6 +4,9 @@
 from zhipuai_embedding import ZhipuAIEmbeddings
 # from langchain_community.vectorstores import Chroma
 from langchain_chroma import Chroma
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # 获取环境变量 API_KEY
 from dotenv import load_dotenv, find_dotenv
