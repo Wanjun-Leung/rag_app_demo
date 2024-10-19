@@ -11,13 +11,13 @@ from zhipuai_embedding import ZhipuAIEmbeddings          # 使用我们自己封
 
 from langchain_community.vectorstores import Chroma
 
-import subprocess
-import sys
-subprocess.check_call(
-    [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
-)
-__import__("pysqlite3")
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+# import subprocess
+# import sys
+# subprocess.check_call(
+#     [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
+# )
+# __import__("pysqlite3")
+# sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 
 # 读取本地/项目的环境变量。
 # find_dotenv()寻找并定位.env文件的路径
