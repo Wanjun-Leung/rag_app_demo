@@ -1,16 +1,15 @@
-# import sys
-# sys.path.append("../C3 搭建知识库") # 将zhupuai_embedding.py的父目录放入系统路径中。此处不需要，因为已在同一级文件夹内
+# import subprocess
+import sys
+# subprocess.check_call(
+#     [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
+# )
+__import__("pysqlite3")
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+
 
 from zhipuai_embedding import ZhipuAIEmbeddings
 # from langchain_community.vectorstores import Chroma
 from langchain_chroma import Chroma
-import subprocess
-import sys
-subprocess.check_call(
-    [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
-)
-__import__("pysqlite3")
-sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 
 # 获取环境变量 API_KEY
 from dotenv import load_dotenv, find_dotenv
