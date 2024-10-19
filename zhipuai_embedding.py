@@ -23,7 +23,7 @@ class ZhipuAIEmbeddings(BaseModel, Embeddings):
     """`zhipuai.ZhipuAI"""
 
     # 用于在校验整个数据模型之前对整个数据模型进行自定义校验，以确保所有的数据都符合所期望的数据结构。
-    @root_validator()
+    @root_validator(allow_reuse=True)
     def validate_environment(cls, values: Dict) -> Dict:
         """
         实例化ZhipuAI为values["client"]
