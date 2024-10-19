@@ -4,6 +4,16 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
+# 调用Embedding API
+# from langchain.embeddings.openai import OpenAIEmbeddings          # 使用 OpenAI Embedding
+# from langchain.embeddings.baidu_qianfan_endpoint import QianfanEmbeddingsEndpoint             # 使用百度千帆 Embedding
+from zhipuai_embedding import ZhipuAIEmbeddings          # 使用我们自己封装的智谱 Embedding，需要将封装代码下载到本地使用
+
+from langchain_community.vectorstores import Chroma
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 # 读取本地/项目的环境变量。
 # find_dotenv()寻找并定位.env文件的路径
 # load_dotenv()读取该.env文件，并将其中的环境变量加载到当前的运行环境中  
@@ -52,11 +62,6 @@ def build_database():
         chunk_size=500, chunk_overlap=50)
     split_docs = text_splitter.split_documents(texts)
 
-    # 调用Embedding API
-    # from langchain.embeddings.openai import OpenAIEmbeddings          # 使用 OpenAI Embedding
-    # from langchain.embeddings.baidu_qianfan_endpoint import QianfanEmbeddingsEndpoint             # 使用百度千帆 Embedding
-    from zhipuai_embedding import ZhipuAIEmbeddings          # 使用我们自己封装的智谱 Embedding，需要将封装代码下载到本地使用
-
     # 定义 Embeddings
     # embedding = OpenAIEmbeddings() 
     # embedding = QianfanEmbeddingsEndpoint()
@@ -69,10 +74,6 @@ def build_database():
     #     os.system(f"rm -rf {persist_directory}")
 
     # 选择 Chroma向量数据库 是因为它轻量级且数据存储在内存中，这使得它非常容易启动和开始使用
-    from langchain_community.vectorstores import Chroma
-    __import__('pysqlite3')
-    import sys
-    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
     # from_documetns 传入List[Document]，即langchain_core.documents.base.Document变量类型的列表，from_texts 传入List[str]
     # embedding传入我们定义的Embedding，persist_directory传入我们定义的持久化路径
     vectordb = Chroma.from_documents(
