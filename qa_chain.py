@@ -104,10 +104,11 @@ def get_chat_qa_chain(question, zhipu_api_key = os.environ['ZHIPUAI_API_KEY']):
         步骤：
         1. 阅读聊天记录。
         2. 阅读用户问题。
-        3. 如果用户问题参考了聊天记录中的上下文，则重新表述问题，并以“问题：”为开头。
+        3. 如果用户问题参考了聊天记录中的上下文，则重新表述问题
+        4. 在问题前面拼接“问题：”作为开头
         4. 如果聊天记录中的上下文存在问题的答案，则
             a. 【不要】回答问题
-            b. 将答案表述为陈述句，后面拼接以“问题：”为开头的问题
+            b. 将答案作为上下文，拼接在问题前面
         """
     )
     CONTEXTUALIZE_Q_SYSTEM_PROMPT = ChatPromptTemplate.from_messages(
