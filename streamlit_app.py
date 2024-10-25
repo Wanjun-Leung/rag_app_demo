@@ -56,7 +56,9 @@ def main():
     # 用于存储应用程序的会话状态，可以是任何Python对象，例如字典、列表、字符串等
     # 可以在应用程序的不同部分共享和访问会话状态
 
-    clear = st.form_submit_button('Clear chat history')
+    # 添加一个clear按钮，用于清除对话历史
+    clear = st.button("清除对话历史")
+    
     
     if 'messages' not in st.session_state or clear:
         st.session_state.messages = []
