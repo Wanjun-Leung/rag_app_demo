@@ -105,8 +105,10 @@ def get_chat_qa_chain(question, zhipu_api_key = os.environ['ZHIPUAI_API_KEY']):
         步骤：
         1. 阅读聊天记录。
         2. 阅读用户问题。
-        3. 如果用户问题参考了聊天记录中的上下文，则重新表述问题。
-        4. 如果聊天记录中的上下文存在问题的答案，则将答案作为上下文，拼接在问题前面。【不要】回答问题
+        3. 如果用户问题参考了聊天记录中的上下文，则重新表述问题，并以“问题：”为开头。
+        4. 如果聊天记录中的上下文存在问题的答案，则
+            a. 【不要】回答问题
+            b. 将答案表述为陈述句，后面拼接以“问题：”为开头的问题
         """
     )
     CONTEXTUALIZE_Q_SYSTEM_PROMPT = ChatPromptTemplate.from_messages(
@@ -123,11 +125,11 @@ def get_chat_qa_chain(question, zhipu_api_key = os.environ['ZHIPUAI_API_KEY']):
     1. 阅读上下文。
     2. 阅读问题。
     3. 判断上下文是否包含问题的关键词及答案。
-    4. 如果上下文包含答案，则指明“根据上下文”并回答问题。
-    5. 若上下文不包含答案，但是你知道答案，则指明“数据库中未提供答案，以下是根据参数知识生成的答案”。
-    6. 若上下文不包含答案，且你也不知道答案，则指明“数据库中未提供答案，且我不知道答案”。
+    4. 如果上下文包含答案，则根据上下文回答问题。
+    6. 若上下文不包含答案，但是你知道答案，则指明“根据参数知识生成答案”。
+    7. 若上下文不包含答案，且你也不知道答案，则指明“我不知道答案”。
     {context}
-    问题: {input}
+    {input}
     """
     # PromptTemplate接受一个字符串，ChatPromptTemplate接受一个列表，可以定义系统和用户Prompt
     QA_CHAIN_PROMPT = PromptTemplate(input_variables=["context","question"],
